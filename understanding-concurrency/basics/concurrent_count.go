@@ -54,6 +54,13 @@ func count5(input string, c chan string) {
 	close(c)
 }
 
+func fib(n int) int {
+	if n <= 1 {
+		return n
+	}
+	return fib(n - 1) + fib(n - 2)
+}
+
 // will only print sheep with count
 func func1(){
 	count("sheep")
@@ -170,6 +177,130 @@ func plainDeadlock() {
 	fmt.Println(msg) // never get executed
 }
 
+func func10() {
+	c := make(chan string, 2) // buffered channel of capacity of 2, can be non-blockong till buffer is filled.
+	c <- "hello1"
+	c <- "hello2" // can put till 2 things before we have to wait for reciever to exist some-place.
+
+	msg := <-c
+	fmt.Println(msg)
+
+	msg = <-c
+	fmt.Println(msg)
+}
+
+func func11() {
+	c := make(chan string, 2) // buffered channel of capacity of 2, can be non-blockong till buffer is filled.
+	c <- "hello1"
+	c <- "hello2" // can put till 2 things before we have to wait for eciever to exist some-place.
+	c <- "hello3" // wil block, thus create a dead-lock, as channel is gonna be full.
+
+	msg := <-c
+	fmt.Println(msg)
+
+	msg = <-c
+	fmt.Println(msg)
+}
+
+// even though the first message arrive early and it can now receive more messages from first channel, it waits till 2nd channel sends
+// 2nd go-routine execution kinda slow down the first go-routine`s usage/processing.
+func plainSynchronization() {
+	c1 := make(chan string)
+	c2 := make(chan string)
+	halfSecond := time.Millisecond * 500
+	twoSeconds := time.Second * 2
+	go func() {
+		for {
+			c1 <- "Every 500Ms"
+			time.Sleep(halfSecond)
+		}
+	}()
+
+	go func() {
+		for {
+			c2 <- "Every 2Sec"
+			time.Sleep(twoSeconds)
+		}
+	}()
+
+	for {
+		fmt.Println(<- c1)
+		fmt.Println(<- c2)
+	}
+}
+
+// using Select statement to get away from the slowing down part of first go-routine
+func func13() {
+	c1 := make(chan string)
+	c2 := make(chan string)
+	halfSecond := time.Millisecond * 500
+	twoSeconds := time.Second * 2
+	go func() {
+		for {
+			c1 <- "Every 500Ms"
+			time.Sleep(halfSecond)
+		}
+	}()
+
+	go func() {
+		for {
+			c2 <- "Every 2Sec"
+			time.Sleep(twoSeconds)
+		}
+	}()
+
+	for {
+		select {
+			case msg1 := <- c1 :
+			fmt.Println(msg1)
+			case msg2 := <- c2 :
+			fmt.Println(msg2)
+		}
+	}
+}
+
+//get the job from 'jobs' channel and return it in 'result' channel
+func worker(jobs chan int, results chan int) {
+	for n := range jobs {
+		results <- fib(n)
+	}
+}
+
+//single worker based usage
+func func14() {
+	jobs := make(chan int, 100)
+	results := make(chan int, 100)
+
+	go worker(jobs, results) // making it a worker/processor
+
+	for i := 0; i < 100; i++ {
+		jobs <- i % 17// sending 100 integers on jobs channel
+	}
+
+	for j := 0; j < 100; j++ {
+		fmt.Println(<- results)
+	}
+}
+
+// multiple worker based usage
+func func15() {
+	jobs := make(chan int, 100)
+	results := make(chan int, 100)
+
+	go worker(jobs, results) // making it a worker/processor
+	go worker(jobs, results) // making it a worker/processor
+	go worker(jobs, results) // making it a worker/processor
+	go worker(jobs, results) // making it a worker/processor
+
+	for i := 0; i < 100; i++ {
+		jobs <- i // sending 100 integers on jobs channel
+	}
+
+	for j := 0; j < 100; j++ {
+		fmt.Println(<- results)
+	}
+}
+
 func Start() {
 	//func1()
 	//func2()
@@ -185,5 +316,17 @@ func Start() {
 	//func8()
 	//func9()
 	//func9_2()
-	plainDeadlock()
+	//plainDeadlock()
+
+	//using buffered channels
+	//func10()
+	//func11()
+
+	//synchronization
+	//plainSynchronization()
+	//func13()
+
+	// worker pools
+	//func14()
+	func15()
 }
