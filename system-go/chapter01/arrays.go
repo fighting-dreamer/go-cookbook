@@ -1,6 +1,9 @@
 package chapter01
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func havingFunWithIndexIssues() {
 	myArray := [4]int{1, 2, 3, 4}
@@ -42,12 +45,11 @@ func printMyArray(array []int) {
 
 func printMyArrayWithSize(array [5]int) {
 	for _, value := range array {
-		fmt.Println(value)
+		fmt.Print(value, " ")
 	}
 }
 
 func printMyArrayWithDynamicSize(array []int) {
-	//myArray := [size]int{}
 	for _, value := range array {
 		fmt.Println(value)
 	}
@@ -58,11 +60,84 @@ func shortcoming1() {
 	fmt.Println(myArray)
 	//printMyArray(myArray) // it does not work
 	printMyArrayWithSize(myArray) // this works
-	printMyArrayWithDynamicSize(myArray)
+	//printMyArrayWithDynamicSize(myArray) // needs works
 }
 
+func printAddresses(array [5]int) {
+	fmt.Printf("Address of passed value : %p\n", &array)
+}
+
+func changeArray(array [5]int) {
+	array[2] = -1
+	printMyArrayWithSize(array)
+}
+
+func shortcoming2() {
+	myArray := [5]int{1,2,3,4,5}
+	fmt.Printf("Address of original array : %p\n", &myArray)
+	printAddresses(myArray)
+	fmt.Printf("confirming Address of original array does not change : %p\n", &myArray)
+
+	fmt.Println("its apparent that chang in array after passing dont reflect in original")
+	fmt.Println("original array : ")
+	printMyArrayWithSize(myArray)
+	fmt.Println()
+	fmt.Println("after change, the changed array : ")
+	changeArray(myArray) // it also prints the array btw
+	fmt.Println()
+	fmt.Println("original array :")
+	printMyArrayWithSize(myArray)
+
+}
+
+func printTimeWhenArraygotPassed(array [10000000]int) int64 {
+	timeInUnix := time.Now().Unix()
+	fmt.Println()
+	fmt.Println("got inside tha function at time : ", timeInUnix)
+	return timeInUnix
+}
+
+
+// Ques: why the time it take to allocte not coming up
+//func shortcoming3() {
+//	fmt.Println()
+//	fmt.Println("Time of start : ", time.Now().Unix())
+//	myArray := [10000000]int{};
+//	for i := 0; i < 10000000; i++ {
+//		myArray[i] = 100
+//	}
+//	timeStart := time.Now().Unix()
+//	fmt.Println()
+//	fmt.Println("Time took to create array : ", timeStart)
+//	timeEnd := printTimeWhenArraygotPassed(myArray)
+//	fmt.Println()
+//	fmt.Println("time before method call, took to get inside the func, difference of both : ", timeStart, timeEnd, timeEnd - timeStart)
+//}
+
+func shortcoming3() {
+	fmt.Println()
+	fmt.Println("Time of start : ", time.Now().Unix())
+	myArray := make([]int, 10000000) // still does not works!!
+	for i := 0; i < 10000000; i++ {
+		myArray[i] = 100
+	}
+	myNewArray := [10000000]int{}
+	for i := 0; i < 10000000; i++ {
+		myNewArray[i] = myArray[i]
+	}
+	timeStart := time.Now().Unix()
+	fmt.Println()
+	fmt.Println("Time took to create array : ", timeStart)
+	timeEnd := printTimeWhenArraygotPassed(myNewArray)
+	fmt.Println()
+	fmt.Println("time before method call, took to get inside the func, difference of both : ", timeStart, timeEnd, timeEnd - timeStart)
+}
+
+
 func shortcomingsOfArray() {
-	shortcoming1() // omce defined, you canot update its size.
+	shortcoming1() // once defined, you canot update its size.
+	shortcoming2() // you pass array by values, so when you are passing array, you first create a copy of array then pass (abstracted by golang)
+	shortcoming3()//
 }
 
 func Start7() {
