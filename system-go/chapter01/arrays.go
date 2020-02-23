@@ -34,6 +34,37 @@ func reWritingStackWithNegtiveIndices() {
 	fmt.Println(my3dArray[i][j][k])
 }
 
+func printMyArray(array []int) {
+	for _, value := range array {
+		fmt.Println(value)
+	}
+}
+
+func printMyArrayWithSize(array [5]int) {
+	for _, value := range array {
+		fmt.Println(value)
+	}
+}
+
+func printMyArrayWithDynamicSize(array []int) {
+	//myArray := [size]int{}
+	for _, value := range array {
+		fmt.Println(value)
+	}
+}
+
+func shortcoming1() {
+	myArray := [5]int{1,2,3,4,5} // its type is not []int, rather it is [5]int
+	fmt.Println(myArray)
+	//printMyArray(myArray) // it does not work
+	printMyArrayWithSize(myArray) // this works
+	printMyArrayWithDynamicSize(myArray)
+}
+
+func shortcomingsOfArray() {
+	shortcoming1() // omce defined, you canot update its size.
+}
+
 func Start7() {
 	myArray := [4]int{1, 2, 3, 4}
 	my2dArray := [4][2]int{{1, 2}, {3, 4}, {5, 6}, {7, 8}}
@@ -72,4 +103,5 @@ func Start7() {
 
 	//havingFunWithIndexIssues()
 	//reWritingStackWithNegtiveIndices() // some other time, seems need to work on this!!
+	shortcomingsOfArray()
 }
