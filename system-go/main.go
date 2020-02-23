@@ -5,5 +5,5 @@ import (
 )
 
 func main() {
-	ch1.Start()
+	ch1.Start2()
 }
