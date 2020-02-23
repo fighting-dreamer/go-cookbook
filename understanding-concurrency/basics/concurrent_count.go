@@ -2,8 +2,8 @@ package basics
 
 import (
 	"fmt"
-	"time"
 	"sync"
+	"time"
 )
 
 // infinetily printin index along with same input
@@ -15,7 +15,7 @@ func count(input string) {
 
 // infinetily printin index along with same input
 func count2(input string) {
-	halfSecond := time.Millisecond*500
+	halfSecond := time.Millisecond * 500
 	for i := 0; i <= 5; i++ {
 		fmt.Println(i, input)
 		time.Sleep(halfSecond)
@@ -58,11 +58,11 @@ func fib(n int) int {
 	if n <= 1 {
 		return n
 	}
-	return fib(n - 1) + fib(n - 2)
+	return fib(n-1) + fib(n-2)
 }
 
 // will only print sheep with count
-func func1(){
+func func1() {
 	count("sheep")
 }
 
@@ -77,7 +77,6 @@ func func3() {
 	go count("sheep")
 	go count("fish")
 }
-
 
 // this is blocking, will go-routine completes, here it will run infinitely
 func func4() {
@@ -111,7 +110,7 @@ func func6() {
 	c := make(chan string)
 	go count3("sheep", c)
 
-	msg := <-c // it is receiving values and assigning it to msg, it is blocking, will receive till it get some data
+	msg := <-c       // it is receiving values and assigning it to msg, it is blocking, will receive till it get some data
 	fmt.Println(msg) // it may get executed after some statement from the go-routine, btw
 }
 
@@ -147,9 +146,9 @@ func func9() {
 	go count5("sheep", c)
 
 	for {
-		msg, open := <- c // here we also take the status of the channel, like if it is open ot not ?
+		msg, open := <-c // here we also take the status of the channel, like if it is open ot not ?
 		if open == false {
-			break;
+			break
 		}
 		fmt.Println(msg) // it may get executed after some statement from the go-routine, btw
 	}
@@ -173,7 +172,7 @@ func plainDeadlock() {
 
 	c <- "sheep" // send waits till receiver is there
 
-	msg := <- c // waits till sender is there
+	msg := <-c       // waits till sender is there
 	fmt.Println(msg) // never get executed
 }
 
@@ -224,8 +223,8 @@ func plainSynchronization() {
 	}()
 
 	for {
-		fmt.Println(<- c1)
-		fmt.Println(<- c2)
+		fmt.Println(<-c1)
+		fmt.Println(<-c2)
 	}
 }
 
@@ -251,9 +250,9 @@ func func13() {
 
 	for {
 		select {
-			case msg1 := <- c1 :
+		case msg1 := <-c1:
 			fmt.Println(msg1)
-			case msg2 := <- c2 :
+		case msg2 := <-c2:
 			fmt.Println(msg2)
 		}
 	}
@@ -274,11 +273,11 @@ func func14() {
 	go worker(jobs, results) // making it a worker/processor
 
 	for i := 0; i < 100; i++ {
-		jobs <- i % 17// sending 100 integers on jobs channel
+		jobs <- i % 17 // sending 100 integers on jobs channel
 	}
 
 	for j := 0; j < 100; j++ {
-		fmt.Println(<- results)
+		fmt.Println(<-results)
 	}
 }
 
@@ -297,8 +296,37 @@ func func15() {
 	}
 
 	for j := 0; j < 100; j++ {
-		fmt.Println(<- results)
+		fmt.Println(<-results)
 	}
+}
+
+//playing with closing channels, Closing always gives a message!!!
+func func16() {
+	c := make(chan int)
+	close(c)
+	fmt.Println(<-c) // it prints zero value of the type-of channel
+	// prints 0
+
+	//BTW, closing gives 2 values : Zero-value of type, false (telling theere will be no more chanel)
+	c2 := make(chan string)
+	close(c2)
+	zeroValue, isMore := <-c2 // zero value for a string is ""
+	fmt.Println("correct Zero value : ", zeroValue == "")
+	fmt.Println("channel is closed, thus this is `false`?, isMore : ", isMore)
+
+}
+
+//playing with closing channels, Closing always gives a message!!!,
+//what if I try to get the closing message multiple times ? : it returns zero again!!!
+func func17() {
+	c := make(chan int)
+	close(c)
+	fmt.Println(<-c) // it prints zero value of the type-of channel
+	fmt.Println(<-c)
+}
+
+func func18() {
+
 }
 
 func Start() {
@@ -328,5 +356,9 @@ func Start() {
 
 	// worker pools
 	//func14()
-	func15()
+	//func15()
+
+	//playing with closing channels
+	//func16()
+	func17()
 }
