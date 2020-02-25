@@ -13,6 +13,7 @@ func Start3() {
 		temp, err := strconv.Atoi(args[i])
 		if err != nil {
 			fmt.Println(err.Error())
+			continue
 		}
 		sum += temp
 	}
