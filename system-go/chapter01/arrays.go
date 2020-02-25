@@ -2,6 +2,7 @@ package chapter01
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 )
 
@@ -140,6 +141,14 @@ func shortcomingsOfArray() {
 	shortcoming3()//
 }
 
+// works fine for array.
+func concurrentWritesOnArray() {
+	arr := [10]int{}
+	for i := 0; i < 10000000; i++ {
+		go func() {arr[rand.Intn(10)] = rand.Intn(100000)}()
+	}
+}
+
 func Start7() {
 	myArray := [4]int{1, 2, 3, 4}
 	my2dArray := [4][2]int{{1, 2}, {3, 4}, {5, 6}, {7, 8}}
@@ -179,4 +188,7 @@ func Start7() {
 	//havingFunWithIndexIssues()
 	//reWritingStackWithNegtiveIndices() // some other time, seems need to work on this!!
 	shortcomingsOfArray()
+
+	//concurrent operations on array
+	concurrentWritesOnArray()
 }
