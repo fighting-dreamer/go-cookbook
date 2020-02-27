@@ -36,7 +36,6 @@ func func3() {
 	}
 }
 
-
 func Start5() {
 	func1()
 	fmt.Println()

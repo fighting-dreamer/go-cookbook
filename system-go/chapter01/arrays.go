@@ -57,7 +57,7 @@ func printMyArrayWithDynamicSize(array []int) {
 }
 
 func shortcoming1() {
-	myArray := [5]int{1,2,3,4,5} // its type is not []int, rather it is [5]int
+	myArray := [5]int{1, 2, 3, 4, 5} // its type is not []int, rather it is [5]int
 	fmt.Println(myArray)
 	//printMyArray(myArray) // it does not work
 	printMyArrayWithSize(myArray) // this works
@@ -74,7 +74,7 @@ func changeArray(array [5]int) {
 }
 
 func shortcoming2() {
-	myArray := [5]int{1,2,3,4,5}
+	myArray := [5]int{1, 2, 3, 4, 5}
 	fmt.Printf("Address of original array : %p\n", &myArray)
 	printAddresses(myArray)
 	fmt.Printf("confirming Address of original array does not change : %p\n", &myArray)
@@ -97,7 +97,6 @@ func printTimeWhenArraygotPassed(array [10000000]int) int64 {
 	fmt.Println("got inside tha function at time : ", timeInUnix)
 	return timeInUnix
 }
-
 
 // Ques: why the time it take to allocte not coming up
 //func shortcoming3() {
@@ -131,21 +130,20 @@ func shortcoming3() {
 	fmt.Println("Time took to create array : ", timeStart)
 	timeEnd := printTimeWhenArraygotPassed(myNewArray)
 	fmt.Println()
-	fmt.Println("time before method call, took to get inside the func, difference of both : ", timeStart, timeEnd, timeEnd - timeStart)
+	fmt.Println("time before method call, took to get inside the func, difference of both : ", timeStart, timeEnd, timeEnd-timeStart)
 }
-
 
 func shortcomingsOfArray() {
 	shortcoming1() // once defined, you canot update its size.
 	shortcoming2() // you pass array by values, so when you are passing array, you first create a copy of array then pass (abstracted by golang)
-	shortcoming3()//
+	shortcoming3() //
 }
 
 // works fine for array.
 func concurrentWritesOnArray() {
 	arr := [10]int{}
 	for i := 0; i < 10000000; i++ {
-		go func() {arr[rand.Intn(10)] = rand.Intn(100000)}()
+		go func() { arr[rand.Intn(10)] = rand.Intn(100000) }()
 	}
 }
 

@@ -1,9 +1,9 @@
 package main
 
 import (
-	ch2 "nipun.io/system-go/chapter02"
+	ch3 "nipun.io/system-go/chapter03"
 )
 
 func main() {
-	ch2.Start3()
+	ch3.Start03()
 }

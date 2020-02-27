@@ -11,7 +11,7 @@ func stopWhenGetZero() {
 		var x int
 		fmt.Scanf("%d", &x)
 		if x == 0 {
-			break;
+			break
 		}
 		fmt.Println(x)
 	}
@@ -39,7 +39,7 @@ func processCommandLineArgs() {
 	}
 }
 
-func array2map (array []float64) map[int]float64 {
+func array2map(array []float64) map[int]float64 {
 	mymap := make(map[int]float64)
 	for index, value := range array {
 		mymap[index] = value
@@ -47,15 +47,15 @@ func array2map (array []float64) map[int]float64 {
 	return mymap
 }
 
-func createNewRandGenerator(seed int) func()int{
-	return func()int {
-		res := (seed * 3) % 1777777 + 1
+func createNewRandGenerator(seed int) func() int {
+	return func() int {
+		res := (seed*3)%1777777 + 1
 		seed = res
 		return res
 	}
 }
 
-func array2slice(array [10]int)[]int {
+func array2slice(array [10]int) []int {
 	//res := make([]int, len(array))
 	//for i, v := range array{
 	//	res[i] = v
@@ -75,7 +75,7 @@ func Start12() {
 		fmt.Println(randGenerator())
 	}
 
-	x := array2slice([10]int{1,2,3,4,5,6,7,8,9,0})
+	x := array2slice([10]int{1, 2, 3, 4, 5, 6, 7, 8, 9, 0})
 	fmt.Println(x)
 
 	// using copy :

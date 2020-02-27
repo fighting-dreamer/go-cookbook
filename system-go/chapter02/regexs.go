@@ -7,10 +7,10 @@ import (
 
 func Start1() {
 	match, _ := regexp.MatchString("nipun", "NIPUN nipun") // will try to match first arg with 2nd arg [string]
-	fmt.Println(match) // true !!!
+	fmt.Println(match)                                     // true !!!
 
 	match, _ = regexp.MatchString("Nipun", "NIPUN nipun") // will try to match first arg with 2nd arg [string]
-	fmt.Println(match) // false !!!
+	fmt.Println(match)                                    // false !!!
 
 	//parse
 	parse, _ := regexp.Compile("Nipun")

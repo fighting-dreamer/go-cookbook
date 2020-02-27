@@ -32,7 +32,7 @@ func (p coordinate) yaxis() int {
 	return 0
 }
 
-func Start11(){
+func Start11() {
 	// interfaces are both a type (abstract btw) and a set of methods
 	p := Point2D{
 		X: 100,

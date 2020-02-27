@@ -6,8 +6,8 @@ import (
 )
 
 type MyStruct struct {
-	X int
-	Y int
+	X     int
+	Y     int
 	Label string
 }
 
@@ -17,7 +17,7 @@ func createStructInsideAndUseIt() {
 		V int
 		W string
 	}
-	p1 := MyStruct{U: 10, V:20, W:"MyStruct-1"}
+	p1 := MyStruct{U: 10, V: 20, W: "MyStruct-1"}
 	p2 := MyStruct{}
 	p2.W = "MyStruct-2"
 
@@ -40,7 +40,7 @@ func testingCongruence1(value MyStruct) {
 
 func Start10() {
 	// printing value via reflect
-	p1 := MyStruct{X: 10, Y:20, Label:"MyStruct-1"}
+	p1 := MyStruct{X: 10, Y: 20, Label: "MyStruct-1"}
 	p2 := MyStruct{}
 	p2.Label = "MyStruct-2"
 
@@ -64,7 +64,7 @@ func Start10() {
 	}
 
 	// Code below will give you error
-	a1 := MyStruct{A: 10, B:20, C:"MyStruct-1"}
+	a1 := MyStruct{A: 10, B: 20, C: "MyStruct-1"}
 	a2 := MyStruct{}
 	a2.C = "MyStruct-2"
 
@@ -88,5 +88,3 @@ func Start10() {
 	x(a1)
 
 }
-
-

@@ -9,14 +9,14 @@ import (
 func AddingElementsConcurrentlyInMap() {
 	tempMap := make(map[int]int)
 	for i := 0; i < 100000; i++ {
-		go func() {tempMap[rand.Intn(10)] = rand.Intn(1000000)}()
+		go func() { tempMap[rand.Intn(10)] = rand.Intn(1000000) }()
 	}
 }
 
 func tryAddingElementsConcurrentlyInMap() {
 	tempMap := make(map[int]int, 10)
 	for i := 0; i < 100000; i++ {
-		go func() {tempMap[rand.Intn(10)] = rand.Intn(1000000)}()
+		go func() { tempMap[rand.Intn(10)] = rand.Intn(1000000) }()
 	}
 }
 
@@ -49,7 +49,7 @@ func Start9() {
 	fmt.Println("no. of elements in map : ", count)
 
 	//deleting stuff in map
-	delete(aMap, "FRI") // remove the element from map
+	delete(aMap, "FRI")    // remove the element from map
 	delete(aMap, "FRIDAY") // does not return error if key is not found!!!
 
 	//iterating on map

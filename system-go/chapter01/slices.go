@@ -20,7 +20,7 @@ func printSlice(aSlice []int) {
 func Start8() {
 	//understanding slice, capacity, length
 	//slice is array but with dynamic size, if it runs out of capacity, go will assign double 'capacity' of its 'original' more to it
-	aSlice := []int{1,2,3,4,5}
+	aSlice := []int{1, 2, 3, 4, 5}
 	fmt.Println(aSlice, cap(aSlice), len(aSlice))
 	aSlice = append(aSlice, -100)
 	fmt.Println(aSlice, cap(aSlice), len(aSlice))
