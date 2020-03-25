@@ -16,7 +16,6 @@ func Start01() {
 	fmt.Println("-i :", *minusI)
 	fmt.Println("-k :", *minusK)
 
-
 	for index, val := range flag.Args() {
 		fmt.Println(index, " : ", val)
 	}
