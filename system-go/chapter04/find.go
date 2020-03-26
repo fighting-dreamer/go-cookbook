@@ -203,6 +203,8 @@ func WalkWithFlagsWithExclude(flagMap map[string]interface{}) filepath.WalkFunc 
 			return nil
 		}
 
+		fileInfo, err = os.Lstat(path) // for symbolic links, you need Lstat()
+		mode = fileInfo.Mode()
 		if *minusSL && (mode&os.ModeSymlink != 0) {
 			fmt.Println(path)
 			return nil
