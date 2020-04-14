@@ -1,0 +1,12 @@
+With this knowledge, it is trivial to implement chat and notification systems, either for end-users or to stream messages between logical parts of applications. Pub/sub can even be used as a building block of a robust queueing system. Let’s look at our simple implementation of an instant messaging chat system.
+On the server side, Node and Socket.IO will take care of the network layer, and Redis will act as a straightforward implementation of pub/sub that delivers messages between clients. On the client side, we’ll use a hint of jQuery to process messages, and send data to the server.
+Discussion
+For this recipe, we’ll assume that you have a recent installation of Node.js, as well as npm in order to install the necessary node libraries to support the chat system (Socket.IO and Redis). We’ll start by looking at how we install the necessary software to build the chat solution, and then go through the code for the server and client sides of the software.
+Installing the necessary software
+Let’s start off by installing the necessary node libraries using npm: npm install socket.io
+npm install redis
+Implementing the server side code
+channel names are not
+channel names are not
+On the server side, we’ll be running Redis and creating a Javascript file that we’ll run with Node.js. This piece of code will take care of setting up a connection to Redis and listening on a given port for connecting clients (either using websockets or flash—this choice will be handled transparently by Socket.IO). Let’s go through our necessary JavaScript code. Create a chat.js file containing the following code:
+channel names are not
