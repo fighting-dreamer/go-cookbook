@@ -35,7 +35,7 @@ func CreateInvertedIndexes(redisCli *redis.Client) {
 			words := strings.Split(line, wordSeperator)
 			for _, word := range words {
 				if stopWordsMap[word] == false {
-					redisCli.SAdd(word, fileName)
+					redisCli.SAdd(word, fileName) // redis -> redis:{file1.txt, data.go} ---> "redis:a":{afile.txt}, "redis:f":{file1.txt}
 					wordCounter = wordCounter + 1
 				}
 			}
@@ -78,7 +78,7 @@ func CreateInvertedIndexesWithScore(redisCli *redis.Client) {
 			words := strings.Split(line, wordSeperator)
 			for _, word := range words {
 				if stopWordsMap[word] == false {
-					redisCli.ZIncrBy(word, 1, fileName)
+					redisCli.ZIncrBy(word, 1, fileName) // redis -> redis: {file1.txt:1, data.go:5}
 					wordCounter = wordCounter + 1
 				}
 			}

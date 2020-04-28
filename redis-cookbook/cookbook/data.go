@@ -10,7 +10,7 @@ var Users []entity.User
 func init() {
 	Users = []entity.User{
 		{
-			Name:              "apple",
+			Name:              "Apple",
 			Email:             "apple@example.xyz",
 			Contact:           "1234567890",
 			Age:               23,
@@ -25,7 +25,7 @@ func init() {
 			},
 		},
 		{
-			Name:              "orange",
+			Name:              "Orange",
 			Email:             "orange@example.xyz",
 			Contact:           "1234567890",
 			Age:               23,
@@ -40,7 +40,7 @@ func init() {
 			},
 		},
 		{
-			Name:              "grape",
+			Name:              "Grape",
 			Email:             "grape@example.xyz",
 			Contact:           "1234567890",
 			Age:               23,
@@ -55,7 +55,7 @@ func init() {
 			},
 		},
 		{
-			Name:              "banana",
+			Name:              "Banana",
 			Email:             "banana@example.xyz",
 			Contact:           "1234567890",
 			Age:               23,
@@ -70,7 +70,7 @@ func init() {
 			},
 		},
 		{
-			Name:              "mango",
+			Name:              "Mango",
 			Email:             "mango@example.xyz",
 			Contact:           "1234567890",
 			Age:               23,
@@ -85,7 +85,7 @@ func init() {
 			},
 		},
 		{
-			Name:              "pineapple",
+			Name:              "Pineapple",
 			Email:             "pineapple@example.xyz",
 			Contact:           "1234567890",
 			Age:               23,

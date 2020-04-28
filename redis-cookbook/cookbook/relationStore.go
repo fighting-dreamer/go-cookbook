@@ -25,7 +25,7 @@ func createUserKey(userName string) string {
 	userKey := userPrefix + userName
 	return userKey
 }
-
+//key attribute-1KEy value1 attribute-2Key value2...
 func setUserRelation(redisCli *redisV7.ClusterClient, user entity.User) {
 	userKey := createUserKey(user.Name)
 	userMap := userToMap(user)

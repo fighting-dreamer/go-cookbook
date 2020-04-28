@@ -11,10 +11,10 @@ func main() {
 	redisClusterCli := redis.NewDefaultRedisClusterClient()
 	redisCli := redis.NewDefaultRedisSimplerClient()
 
-	cookbook.UseRedisAsRelationStore(redisClusterCli)
-	cookbook.CreateUserNetwork(redisCli)
-	cookbook.InvertedIndexesExample(redisCli)
-	cookbook.InvertedIndexesWithScoreExample(redisCli)
+	//cookbook.UseRedisAsRelationStore(redisClusterCli)
+	//cookbook.CreateUserNetwork(redisCli)
+	//cookbook.InvertedIndexesExample(redisCli)
+	//cookbook.InvertedIndexesWithScoreExample(redisCli)
 	cookbook.RedisAsQueue(redisCli)
 
 	redisCli.Close()

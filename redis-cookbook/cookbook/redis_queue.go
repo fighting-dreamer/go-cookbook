@@ -29,8 +29,8 @@ func RedisAsQueue(redisCli *redis.Client) {
 	queueName := util.GetUniqueID()
 	fmt.Println(queueName)
 
-	noOfProducer := 10
-	noOfConsumer := 10
+	noOfProducer := 20
+	noOfConsumer := 20
 	wg.Add(noOfConsumer + noOfProducer)
 
 	for i := 0; i < noOfProducer; i++ {
