@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"github.com/lib/pq"
 	"nipun.io/go-cookbook/go-db/db"
 )
 
@@ -14,10 +13,7 @@ func main() {
 		fmt.Println("nwkfnkfn")
 	}
 	dl := db.DAO_Layer{
-		Conn:db.Conn,
-		Help: db.Helper{
-			PqArray: pq.Array,
-		},
+		Conn: db.Conn,
 	}
 	dl.SimplePingQuery()
 	dl.SingleLevelDataQuery()

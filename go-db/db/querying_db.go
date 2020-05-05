@@ -3,9 +3,6 @@ package db
 import (
 	"context"
 	"database/sql"
-	"database/sql/driver"
-	"strings"
-
 	//"database/sql/driver"
 	"fmt"
 	"github.com/jmoiron/sqlx"
@@ -13,30 +10,12 @@ import (
 	"nipun.io/go-cookbook/go-db/domain"
 )
 
-type PqStringArray []string
-
-func (psa *PqStringArray) Scan(value interface{}) error {
-	if value == nil {
-		*psa = PqStringArray([]string{})
-		return nil
-	}
-	stringVal := value.([]string)
-	*psa = PqStringArray(stringVal)
-	return nil
-}
-
-func (psa PqStringArray) Value() (driver.Value, error) {
-	value := "{" + strings.Join(psa, ",") + "}"
-	return value, nil
-}
-
-type Helper struct {
-	PqStringArray func(interface{})interface{Scan(interface {}) error; Value() (driver.Value, error)}
-}
+//type Helper struct {
+//	domain.PqStringArray func(interface{})interface{Scan(interface {}) error; Value() (driver.Value, error)}
+//}
 
 type DAO_Layer struct {
 	Conn *sqlx.DB
-	Help Helper
 }
 
 
@@ -82,7 +61,7 @@ func (dl *DAO_Layer) SingleLevelWithArrayDataQuery() []domain.DBUser {
 	dbRows := []domain.DBUser{}
 	for rows.Next() {
 		row := domain.DBUser{}
-		err := rows.Scan(&row.Id, &row.Name, PqStringArray(&row.Contacts))
+		err := rows.Scan(&row.Id, &row.Name,&row.Contacts)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -94,9 +73,9 @@ func (dl *DAO_Layer) SingleLevelWithArrayDataQuery() []domain.DBUser {
 
 func (dl *DAO_Layer) SingleLevelWithArrayDataInsertQuery() sql.Result {
 	Conn = dl.Conn
-	PqStringArray := dl.Help.PqStringArray
+	//domain.PqStringArray := dl.Help.domain.PqStringArray
 	query := "INSERT INTO db_user VALUES ($1, $2, $3)";
-	result, err:= Conn.Exec(query, 3, "user-3", PqStringArray(&[]string{"1029384756", "0192837465"}))
+	result, err:= Conn.Exec(query, 3, "user-3", domain.PqStringArray([]string{"1029384756", "0192837465"}))
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 	}
@@ -105,9 +84,9 @@ func (dl *DAO_Layer) SingleLevelWithArrayDataInsertQuery() sql.Result {
 
 func (dl *DAO_Layer) SingleLevelWithArrayDataUpdateQuery() sql.Result {
 	Conn = dl.Conn
-	PqStringArray := dl.Help.PqStringArray
+	//domain.PqStringArray := dl.Help.domain.PqStringArray
 	query := "UPDATE db_user SET contacts = $1 WHERE id = $2";
-	result , err:= Conn.Exec(query, PqStringArray([]string{"1111111111", "000000000"}), 3)
+	result , err:= Conn.Exec(query, domain.PqStringArray([]string{"1111111111", "000000000"}), 3)
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 	}
@@ -116,9 +95,9 @@ func (dl *DAO_Layer) SingleLevelWithArrayDataUpdateQuery() sql.Result {
 
 func (dl *DAO_Layer) SingleLevelWithArrayDataUpdateQueryNoUPDATE() sql.Result {
 	Conn = dl.Conn
-	PqStringArray := dl.Help.PqStringArray
+	//domain.PqStringArray := dl.Help.domain.PqStringArray
 	query := "UPDATE db_user SET contacts = $1 WHERE id = $2";
-	result , err:= Conn.Exec(query, PqStringArray([]string{"1111111111", "000000000"}), 10)
+	result , err:= Conn.Exec(query, domain.PqStringArray([]string{"1111111111", "000000000"}), 10)
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 	}
@@ -163,14 +142,14 @@ func (dl *DAO_Layer) SelectInTransaction() sql.Result {
 
 func (dl *DAO_Layer) InsertInTransaction() sql.Result {
 	Conn = dl.Conn
-	PqStringArray := dl.Help.PqStringArray
+	//domain.PqStringArray := dl.Help.domain.PqStringArray
 	tx, err := Conn.BeginTxx(context.Background(), nil)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
 	query := "INSERT INTO db_user VALUES ($1, $2, $3)";
-	result , err:= tx.Exec(query, 4, "user-4", PqStringArray([]string{"2222222222", "3333333333"}))
+	result , err:= tx.Exec(query, 4, "user-4", domain.PqStringArray([]string{"2222222222", "3333333333"}))
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 		tx.Rollback()
@@ -190,14 +169,14 @@ func (dl *DAO_Layer) InsertInTransaction() sql.Result {
 
 func (dl *DAO_Layer) UpdateInTransaction() sql.Result {
 	Conn = dl.Conn
-	PqStringArray := dl.Help.PqStringArray
+	//domain.PqStringArray := dl.Help.domain.PqStringArray
 	tx, err := Conn.BeginTxx(context.Background(), nil)
 	if err != nil {
 		fmt.Println(err.Error())
 	}
 
 	query := "UPDATE db_user SET contacts = $1 WHERE id = $2";
-	result , err:= tx.Exec(query, PqStringArray([]string{"4444444444", "555555555"}), 4)
+	result , err:= tx.Exec(query, domain.PqStringArray([]string{"4444444444", "555555555"}), 4)
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 		tx.Rollback()
