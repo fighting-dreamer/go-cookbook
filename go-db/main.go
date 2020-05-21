@@ -15,17 +15,17 @@ func main() {
 	dl := db.DAO_Layer{
 		Conn: db.Conn,
 	}
-	dl.SimplePingQuery()
-	dl.SingleLevelDataQuery()
-	dl.SingleLevelWithArrayDataQuery()
-	//dl.SingleLevelWithArrayDataInsertQuery()
-	//dl.SingleLevelWithArrayDataUpdateQuery()
-	dl.SingleLevelWithArrayDataUpdateQueryNoUPDATE()
-	dl.SingleLevelWithArrayDataUpdateQueryGetError()
-
-	// Transaction in DB
-	dl.SelectInTransaction()
-	//dl.InsertInTransaction()
+	//dl.SimplePingQuery()
+	//dl.SingleLevelDataQuery()
+	//dl.SingleLevelWithArrayDataQuery()
+	////dl.SingleLevelWithArrayDataInsertQuery()
+	////dl.SingleLevelWithArrayDataUpdateQuery()
+	//dl.SingleLevelWithArrayDataUpdateQueryNoUPDATE()
+	//dl.SingleLevelWithArrayDataUpdateQueryGetError()
+	//
+	//// Transaction in DB
+	//dl.SelectInTransaction()
+	////dl.InsertInTransaction()
 	dl.UpdateInTransaction()
 
 }

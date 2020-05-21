@@ -86,7 +86,7 @@ func (dl *DAO_Layer) SingleLevelWithArrayDataUpdateQuery() sql.Result {
 	Conn = dl.Conn
 	//domain.PqStringArray := dl.Help.domain.PqStringArray
 	query := "UPDATE db_user SET contacts = $1 WHERE id = $2";
-	result , err:= Conn.Exec(query, domain.PqStringArray([]string{"1111111111", "000000000"}), 3)
+	result , err:= Conn.Exec(query, domain.PqStringArray([]string{"111111111", "000000000"}), 3)
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 	}
@@ -176,7 +176,7 @@ func (dl *DAO_Layer) UpdateInTransaction() sql.Result {
 	}
 
 	query := "UPDATE db_user SET contacts = $1 WHERE id = $2";
-	result , err:= tx.Exec(query, domain.PqStringArray([]string{"4444444444", "555555555"}), 4)
+	result , err:= tx.Exec(query, domain.PqStringArray([]string{"4454444444", "555555555"}), 4)
 	if err != nil {
 		fmt.Println("Got error : ", err.Error())
 		tx.Rollback()
@@ -184,6 +184,11 @@ func (dl *DAO_Layer) UpdateInTransaction() sql.Result {
 	err = tx.Commit()
 	if err != nil {
 		fmt.Println(err)
+	}
+
+	err = tx.Commit()
+	if err != nil {
+		fmt.Print("commiting again : ", err)
 	}
 
 	rowsEffected, err := result.RowsAffected()
